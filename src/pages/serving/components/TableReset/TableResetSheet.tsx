@@ -43,30 +43,46 @@ const TableResetSheet = ({ onClose, onSubmit, validTables, onInvalidSubmit }: Ta
       <S.SheetContainer onClick={(e) => e.stopPropagation()}>
         <S.HandleBar />
 
-        <S.InputBox>
-          {tableNumber ? (
-            <S.InputText>{tableNumber}</S.InputText>
-          ) : (
-            <S.Placeholder>테이블 번호를 입력해주세요</S.Placeholder>
-          )}
-        </S.InputBox>
-        <S.KeypadGrid>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-            <S.KeyButton key={num} onClick={() => handleKeyPress(num.toString())}>
-              {num}
+        <S.SheetBody>
+          <S.InputBox>
+            {tableNumber ? (
+              <S.InputText>{tableNumber}</S.InputText>
+            ) : (
+              <S.Placeholder>테이블 번호를 입력해주세요</S.Placeholder>
+            )}
+          </S.InputBox>
+          <S.KeypadGrid>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+              <S.KeyButton
+                key={num}
+                onClick={() => handleKeyPress(num.toString())}
+              >
+                {num}
+              </S.KeyButton>
+            ))}
+            <S.KeyButton>
+              <img src={IMAGE_CONSTANTS.nomalKokkiri} alt="kokkiri" />
             </S.KeyButton>
-          ))}
-          <S.KeyButton>
-            <img src={IMAGE_CONSTANTS.nomalKokkiri} alt="kokkiri" />
-          </S.KeyButton>
-          <S.KeyButton onClick={() => handleKeyPress("0")}>0</S.KeyButton>
-          <S.KeyButton onClick={handleDelete}>
-            <img src={IMAGE_CONSTANTS.deleteKey} alt="delete" style={{ width: 30 }} />
-          </S.KeyButton>
-        </S.KeypadGrid>
-        <S.SubmitButton type="button" $active={isValidTableNumber} disabled={!isValidTableNumber} onClick={handleSubmit}>
-          선택완료
-        </S.SubmitButton>
+            <S.KeyButton onClick={() => handleKeyPress("0")}>0</S.KeyButton>
+            <S.KeyButton onClick={handleDelete}>
+              <img
+                src={IMAGE_CONSTANTS.deleteKey}
+                alt="delete"
+                style={{ width: 30 }}
+              />
+            </S.KeyButton>
+          </S.KeypadGrid>
+        </S.SheetBody>
+        <S.SheetFooter>
+          <S.SubmitButton
+            type="button"
+            $active={isValidTableNumber}
+            disabled={!isValidTableNumber}
+            onClick={handleSubmit}
+          >
+            선택완료
+          </S.SubmitButton>
+        </S.SheetFooter>
       </S.SheetContainer>
     </S.Overlay>
   );

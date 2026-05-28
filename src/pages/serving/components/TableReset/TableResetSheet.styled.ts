@@ -11,6 +11,7 @@ export const Overlay = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 100;
   display: flex;
@@ -23,11 +24,15 @@ export const SheetContainer = styled.div`
   max-width: 500px;
   background-color: ${({ theme }) => theme.colors?.White || "#FFFFFF"};
   border-radius: 1.5rem 1.5rem 0 0;
-  padding: 0.5rem 0.75rem 5rem;
+  max-height: calc(100vh - 0.75rem);
+  max-height: calc(100dvh - 0.75rem);
+  padding: clamp(0.375rem, 1.2dvh, 0.5rem) 0.75rem 0;
   box-sizing: border-box;
   animation: ${slideUp} 0.3s ease-out;
   display: flex;
   flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
 `;
 
 export const HandleBar = styled.div`
@@ -35,7 +40,8 @@ export const HandleBar = styled.div`
   height: 0.25rem;
   background-color: #e0e0e0;
   border-radius: 2px;
-  margin: 0 auto 1.625rem auto;
+  flex-shrink: 0;
+  margin: 0 auto clamp(0.75rem, 3dvh, 1.625rem) auto;
 `;
 
 // export const Title = styled.h2`
@@ -45,14 +51,27 @@ export const HandleBar = styled.div`
 
 export const InputBox = styled.div`
   width: 100%;
-  height: 3.5rem;
+  height: clamp(2.75rem, 8dvh, 3.5rem);
   border-radius: 0.75rem;
   border: 1px solid rgba(192, 192, 192, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.Bg};
-  margin-bottom: 2rem;
+  margin-bottom: clamp(0.625rem, 2.5dvh, 2rem);
+  flex-shrink: 0;
+`;
+
+export const SheetBody = styled.div`
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  width: 100%;
+`;
+
+export const SheetFooter = styled.div`
+  flex-shrink: 0;
+  padding: 0 0 calc(clamp(0.75rem, 2.5dvh, 1rem) + env(safe-area-inset-bottom));
 `;
 
 export const Placeholder = styled.span`
@@ -68,12 +87,14 @@ export const InputText = styled.span`
 export const KeypadGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-  margin-bottom: 1.25rem;
+  gap: clamp(0.5rem, 2dvh, 1.25rem);
+  margin-bottom: clamp(0.625rem, 2.5dvh, 1.25rem);
+  min-width: 0;
+  overflow: hidden;
 `;
 
 export const KeyButton = styled.button`
-  aspect-ratio: 2 / 1;
+  height: clamp(2.5rem, 8.5dvh, 4.75rem);
   border-radius: 0.75rem;
   background-color: #f8f8f8;
   border: none;
@@ -85,20 +106,21 @@ export const KeyButton = styled.button`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  min-width: 0;
 
   &:active {
     background-color: #efefef;
   }
 
   img {
-    width: 3.125rem;
+    width: clamp(2rem, 8dvh, 3.125rem);
     height: auto;
   }
 `;
 
 export const SubmitButton = styled.button<{ $active: boolean }>`
   width: 100%;
-  height: 3.5rem;
+  height: clamp(3rem, 8dvh, 3.5rem);
   border-radius: 0.75rem;
   background-color: ${({ theme, $active }) =>
     $active ? theme.colors.Orange01 : theme.colors.Black02};
